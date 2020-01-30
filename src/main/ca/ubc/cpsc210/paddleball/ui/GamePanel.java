@@ -1,38 +1,96 @@
-package ca.ubc.cpsc210.paddleball.ui;import java.awt.Color;import java.awt.Dimension;import java.awt.Font;import java.awt.FontMetrics;import java.awt.Graphics;import javax.swing.JPanel;import ca.ubc.cpsc210.paddleball.model.PBG;import ca.ubc.cpsc210.paddleball.model.BALL;import ca.ubc.cpsc210.paddleball.model.Puddle;
+package ca.ubc.cpsc210.paddleball.ui;
+
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.FontMetrics;
+import java.awt.Graphics;
+
+import javax.swing.JPanel;
+import ca.ubc.cpsc210.paddleball.model.PBG;
+import ca.ubc.cpsc210.paddleball.model.Ball;
+import ca.ubc.cpsc210.paddleball.model.Puddle;
+
 /*
  * The panel in which the game is rendered.
  */
 @SuppressWarnings("serial")
-public class GamePanel extends JPanel {  private static final String OVER = "Game Over!";  private static final String REPLAY = "R to replay";  private PBG game;
-  // Constructs a game panel
-  // EFFECTS:  sets size and background colour of panel,
-  //  updates this with the game to be displayed
-  GamePanel(PBG g) {  setPreferredSize(new Dimension(PBG.DIMENSION1, PBG.DIMENSION2));  setBackground(Color.GRAY);  this.game = g;  }
+public class GamePanel extends JPanel {
 
-  @Override  protected void paintComponent(Graphics g) {  super.paintComponent(g);  drawGame(g);  if (game.isOver()) gameOver(g); }
+    private static final String OVER = "Game Over!";
+    private static final String REPLAY = "R to replay";
+    private PBG game;
 
-  // Draws the game
-  // MODIFIES: g
-  // EFFECTS:  draws the game onto g
-  private void drawGame(Graphics g) {  drawPaddle(g);  drawBall(g);  }
+    // Constructs a game panel
+    // EFFECTS:  sets size and background colour of panel,
+    //  updates this with the game to be displayed
+    public GamePanel(PBG g) {
+        setPreferredSize(new Dimension(PBG.DIMENSION1, PBG.DIMENSION2));
+        setBackground(Color.GRAY);
+        this.game = g;
+    }
 
-  // Draw the tank
-  // MODIFIES: g
-  // EFFECTS:  draws the tank onto g
-  private void drawPaddle(Graphics g) {  Puddle t = game.getPaddle();  Color savedCol = g.getColor();  g.setColor(Puddle.COLOR);  g.fillRect(t.getX() - Puddle.DIMENSION1 / 2, Puddle.Y_POS - Puddle.DIMENSION2 / 2, Puddle.DIMENSION1, Puddle.DIMENSION2);  g.setColor(savedCol);  }
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        drawGame(g);
+        if (game.isOver()) {
+            gameOver(g);
+        }
+    }
 
-  // Draw the ball
-  // MODIFIES: g
-  // EFFECTS:  draws the ball onto g
-  private void drawBall(Graphics g) {  BALL b = game.getBall();  Color savedCol = g.getColor();  g.setColor(BALL.COLOR);  g.fillOval(b.getX() - BALL.SIZE / 2, b.getY() - BALL.SIZE / 2, BALL.SIZE, BALL.SIZE);  g.setColor(savedCol);  }
+    // Draws the game
+    // MODIFIES: g
+    // EFFECTS:  draws the game onto g
+    private void drawGame(Graphics g) {
+        drawPaddle(g);
+        drawBall(g);
+    }
 
-  // Draws the "game over" message and replay instructions
-  // MODIFIES: g
-  // EFFECTS:  draws "game over" and replay instructions onto g
-  private void gameOver(Graphics g) {  Color saved = g.getColor();  g.setColor(new Color(0, 0, 0));  g.setFont(new Font("Arial", 20, 20));  FontMetrics fm = g.getFontMetrics();  centreString(OVER, g, fm, PBG.DIMENSION2 / 2);  centreString(REPLAY, g, fm, PBG.DIMENSION2 / 2 + 50);  g.setColor(saved);  }
+    // Draw the tank
+    // MODIFIES: g
+    // EFFECTS:  draws the tank onto g
+    private void drawPaddle(Graphics g) {
+        Puddle t = game.getPaddle();
+        Color savedCol = g.getColor();
+        g.setColor(Puddle.COLOR);
+        g.fillRect(t.getPosX() - Puddle.DIMENSION1 / 2,
+                Puddle.Y_POS - Puddle.DIMENSION2 / 2,
+                Puddle.DIMENSION1, Puddle.DIMENSION2);
+        g.setColor(savedCol);
+    }
 
-  // Centres a string on the screen
-  // MODIFIES: g
-  // EFFECTS:  centres the string str horizontally onto g at vertical position y
-  private void centreString(String str, Graphics g, FontMetrics fm, int y) {  int width = fm.stringWidth(str);  g.drawString(str, (PBG.DIMENSION1 - width) / 2, y);  }
+    // Draw the ball
+    // MODIFIES: g
+    // EFFECTS:  draws the ball onto g
+    private void drawBall(Graphics g) {
+        Ball b = game.getBall();
+        Color savedCol = g.getColor();
+        g.setColor(Ball.COLOR);
+        g.fillOval(b.getPosX() - Ball.SIZE / 2,
+                b.getPosY() - Ball.SIZE / 2,
+                Ball.SIZE, Ball.SIZE);
+        g.setColor(savedCol);
+    }
+
+    // Draws the "game over" message and replay instructions
+    // MODIFIES: g
+    // EFFECTS:  draws "game over" and replay instructions onto g
+    private void gameOver(Graphics g) {
+        Color saved = g.getColor();
+        g.setColor(new Color(0, 0, 0));
+        g.setFont(new Font("Arial", 20, 20));
+        FontMetrics fm = g.getFontMetrics();
+        centreString(OVER, g, fm, PBG.DIMENSION2 / 2);
+        centreString(REPLAY, g, fm, PBG.DIMENSION2 / 2 + 50);
+        g.setColor(saved);
+    }
+
+    // Centres a string on the screen
+    // MODIFIES: g
+    // EFFECTS:  centres the string str horizontally onto g at vertical position y
+    private void centreString(String str, Graphics g, FontMetrics fm, int y) {
+        int width = fm.stringWidth(str);
+        g.drawString(str, (PBG.DIMENSION1 - width) / 2, y);
+    }
 }

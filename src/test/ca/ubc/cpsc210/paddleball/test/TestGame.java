@@ -24,17 +24,17 @@ class TestGame {
 	@Test
 	void testInit() {
 		Puddle t = g.getPaddle();
-		assertEquals(PBG.DIMENSION1 / 2, t.getX());
+		assertEquals(PBG.DIMENSION1 / 2, t.getPosX());
 	}
 	
 	@Test
 	void testUpdate() {
 		Puddle t = g.getPaddle();
-		assertEquals(PBG.DIMENSION1 / 2, t.getX());
+		assertEquals(PBG.DIMENSION1 / 2, t.getPosX());
 		g.update();
-		assertEquals(PBG.DIMENSION1 / 2 + Puddle.DX, t.getX());
+		assertEquals(PBG.DIMENSION1 / 2 + Puddle.DX, t.getPosX());
 		g.update();
-		assertEquals(PBG.DIMENSION1 / 2 + 2 * Puddle.DX, t.getX());
+		assertEquals(PBG.DIMENSION1 / 2 + 2 * Puddle.DX, t.getPosX());
 	}
 	
 	@Test
@@ -42,14 +42,14 @@ class TestGame {
 		Puddle t = g.getPaddle();
 		g.keyPressed(KeyEvent.VK_LEFT);
 		g.update();
-		assertEquals(PBG.DIMENSION1 / 2 - Puddle.DX, t.getX());
+		assertEquals(PBG.DIMENSION1 / 2 - Puddle.DX, t.getPosX());
 		g.update();
-		assertEquals(PBG.DIMENSION1 / 2 - 2 * Puddle.DX, t.getX());
+		assertEquals(PBG.DIMENSION1 / 2 - 2 * Puddle.DX, t.getPosX());
 		g.keyPressed(KeyEvent.VK_RIGHT);
 		g.update();
-		assertEquals(PBG.DIMENSION1 / 2 - Puddle.DX, t.getX());
+		assertEquals(PBG.DIMENSION1 / 2 - Puddle.DX, t.getPosX());
 		g.update();
-		assertEquals(PBG.DIMENSION1 / 2, t.getX());
+		assertEquals(PBG.DIMENSION1 / 2, t.getPosX());
 	}
 	
 	@Test
@@ -57,13 +57,13 @@ class TestGame {
 		Puddle t = g.getPaddle();
 		g.keyPressed(KeyEvent.VK_KP_LEFT);
 		g.update();
-		assertEquals(PBG.DIMENSION1 / 2 - Puddle.DX, t.getX());
+		assertEquals(PBG.DIMENSION1 / 2 - Puddle.DX, t.getPosX());
 		g.update();
-		assertEquals(PBG.DIMENSION1 / 2 - 2 * Puddle.DX, t.getX());
+		assertEquals(PBG.DIMENSION1 / 2 - 2 * Puddle.DX, t.getPosX());
 		g.keyPressed(KeyEvent.VK_KP_RIGHT);
 		g.update();
-		assertEquals(PBG.DIMENSION1 / 2 - Puddle.DX, t.getX());
+		assertEquals(PBG.DIMENSION1 / 2 - Puddle.DX, t.getPosX());
 		g.update();
-		assertEquals(PBG.DIMENSION1 / 2, t.getX());
+		assertEquals(PBG.DIMENSION1 / 2, t.getPosX());
 	}
 }

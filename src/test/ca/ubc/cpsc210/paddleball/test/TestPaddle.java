@@ -21,52 +21,52 @@ class TestPaddle {
 	
 	@Test
 	void testGetX() {
-		assertEquals(XLOC, p.getX());
+		assertEquals(XLOC, p.getPosX());
 	}
 	
 	@Test
 	void testUpdate() {
 		final int NUM_UPDATES = 8;
 		
-		p.Move();
-		assertEquals(XLOC + Puddle.DX, p.getX());
+		p.move();
+		assertEquals(XLOC + Puddle.DX, p.getPosX());
 		
 		for(int count = 1; count < NUM_UPDATES; count++) {
-			p.Move();
+			p.move();
 		}
 		
-		assertEquals(XLOC + NUM_UPDATES * Puddle.DX, p.getX());
+		assertEquals(XLOC + NUM_UPDATES * Puddle.DX, p.getPosX());
 	}
 	
 	@Test
 	void testFlipDirection() {
-		p.Move();
-		assertEquals(XLOC + Puddle.DX, p.getX());
-		p.L();
-		p.Move();
-		assertEquals(XLOC, p.getX());
-		p.R();
-		p.Move();
-		assertEquals(XLOC + Puddle.DX, p.getX());
+		p.move();
+		assertEquals(XLOC + Puddle.DX, p.getPosX());
+		p.moveLeft();
+		p.move();
+		assertEquals(XLOC, p.getPosX());
+		p.moveRight();
+		p.move();
+		assertEquals(XLOC + Puddle.DX, p.getPosX());
 	}
 	
 	@Test 
 	void testLeftBoundary() {
-		p.L();
+		p.moveLeft();
 		for(int count = 0; count < (PBG.DIMENSION1 / 2 - Puddle.DIMENSION1 / 2) / Puddle.DX + 1; count++)
-			p.Move();
-		assertEquals(Puddle.DIMENSION1 / 2, p.getX());
-		p.Move();
-		assertEquals(Puddle.DIMENSION1 / 2, p.getX());
+			p.move();
+		assertEquals(Puddle.DIMENSION1 / 2, p.getPosX());
+		p.move();
+		assertEquals(Puddle.DIMENSION1 / 2, p.getPosX());
 	}
 	
 	@Test
 	void testRightBoundary() {
-		p.R();
+		p.moveRight();
 		for(int count = 0; count < (PBG.DIMENSION1 / 2 - Puddle.DIMENSION1 / 2) / Puddle.DX + 1; count++)
-			p.Move();
-		assertEquals(PBG.DIMENSION1 - Puddle.DIMENSION1 / 2, p.getX());
-		p.Move();
-		assertEquals(PBG.DIMENSION1 - Puddle.DIMENSION1 / 2, p.getX());
+			p.move();
+		assertEquals(PBG.DIMENSION1 - Puddle.DIMENSION1 / 2, p.getPosX());
+		p.move();
+		assertEquals(PBG.DIMENSION1 - Puddle.DIMENSION1 / 2, p.getPosX());
 	}
 }
